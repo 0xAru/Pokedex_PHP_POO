@@ -8,16 +8,13 @@ require_once("./controllers/UserValidator.php");
 $userController = new UserController();
 $pokemonController = new PokemonController();
 
-$actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
-var_dump($_SERVER['REQUEST_URI']);
-// Extraire l'action à partir de l'URL, $actionParts[0] = localhost, $actionParts[1] = POO_Login_restart, $actionParts[2] = index.php
-$action = $actionParts[2];
+$action = isset($_SERVER['REQUEST_URI']) ? (str_replace('/POO_Login_restart','', $_SERVER['REQUEST_URI'])) : '';
 
-var_dump($action);
-die;
+// Extraire l'action à partir de l'URL, $actionParts[0] = localhost, $actionParts[1] = POO_Login_restart, $actionParts[2] = index.php
+
 
 switch ($action) {
-    case "register":
+    case "/register":
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userController->register($_POST);
         } else {
@@ -25,7 +22,7 @@ switch ($action) {
         }
         break;
 
-    case "login":
+    case "/login":
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userController->login($_POST);
         } else {
@@ -33,7 +30,7 @@ switch ($action) {
         }
         break;
 
-    case 'dashboard':
+    case '/dashboard':
         $userController->authGuard();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pokemonController->addPoke($_POST);
@@ -41,7 +38,7 @@ switch ($action) {
         $userController->getPokemons();
         break;
 
-    case 'deletePoke':
+    case '/deletePoke':
         $userController->authGuard();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pokemonController->deletePoke($_POST);
@@ -49,11 +46,11 @@ switch ($action) {
         $userController->getPokemons();
         break;
 
-    case 'logout':
+    case '/logout':
         $userController->logout();
         break;
 
-    case '':
+    case '/':
         header("Location: ./register");
         break;
 
