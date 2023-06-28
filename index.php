@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once("./controllers/UserController.php");
 require_once("./controllers/PokemonController.php");
 require_once("./controllers/UserValidator.php");
@@ -10,7 +11,7 @@ $pokemonController = new PokemonController();
 $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_URI'])) : '';
 
 // Extraire l'action à partir de l'URL, $actionParts[0] = localhost, $actionParts[1] = POO_Login_restart, $actionParts[2] = index.php
-$action = $actionParts[3];
+$action = $actionParts[2];
 
 switch ($action) {
     case "register":
