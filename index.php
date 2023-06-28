@@ -13,6 +13,9 @@ $actionParts = isset($_SERVER['REQUEST_URI']) ? (explode('/', $_SERVER['REQUEST_
 // Extraire l'action à partir de l'URL, $actionParts[0] = localhost, $actionParts[1] = POO_Login_restart, $actionParts[2] = index.php
 $action = $actionParts[2];
 
+var_dump($action);
+die;
+
 switch ($action) {
     case "register":
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
